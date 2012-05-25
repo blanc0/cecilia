@@ -1,0 +1,28 @@
+Cecilia
+========
+
+What?
+-------
+Cecilia is a php library for interacting with the Spotify Web API.   
+
+why?
+-------
+
+how?
+------
+
+Example Usage:  
+
+
+	// Search Example.
+	
+	require_once('/path/to/cecilia/cecilia.bootstrap.php');
+	use \cecilia\core\Cecilia;
+	
+	$cecilia = new Cecilia();
+	
+	$search = $cecilia->search(); 
+	
+	
+	
+	  
