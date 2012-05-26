@@ -1,6 +1,15 @@
 <?php
 namespace cecilia\model;
 /**
+ *
+ * Description Here
+ *
+ * @copyright 2012 Charlie Parks
+ * @author  Charlie Parks <charlie@blanc0.net>
+ * @namespace cecilia\model
+ * @package cecilia
+ * @subpackage model
+ *
  * 
  * http://ws.spotify.com/lookup/1/.json?uri=spotify:album:6G9fHYDCoyEErUkHrFYfs4&extras=trackdetail
 {

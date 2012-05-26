@@ -2,23 +2,27 @@
 /*******************************************************************************
  * CECILA GLOBAL CONFIGURATION 
 *******************************************************************************/
+date_default_timezone_set('GMT');
+// 1 enabled, 0 disabled.
+define("CECILIA_DEBUG_MODE",FALSE);
+
 
 // 1 enabled, 0 disabled.
-define("CECILIA_DEBUG_MODE",false);
+define("CECILIA_LOGGING_ENABLED",FALSE);
 // first, call the init() function to ensure that we have all required components.
 
 /**
- * @var string CECILIA_DS The Directory Seperator Constant.
+ * CECILIA_DS The Directory Seperator Constant.
  */
 define ("CECILIA_DS",DIRECTORY_SEPARATOR);
 
 /**
- * @var string CECILIA_BASE_PATH The base path of the library.
+ * The base path of the library.
  */
 define("CECILIA_BASE_PATH",dirname(__FILE__).CECILIA_DS);
 
 /**
- * @var unknown_type
+ *
  */
 define("CECILIA_PAGER_MAX_PER_PAGE",100);
 
@@ -29,7 +33,7 @@ define("CECILIA_PAGER_MAX_PAGES",3);
 
 
 /**
- * @var unknown_type
+ * 
  */
 define("CECILIA_PAGER_MAX_ITEMS",CECILIA_PAGER_MAX_PAGES*CECILIA_PAGER_MAX_PER_PAGE);
 

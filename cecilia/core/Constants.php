@@ -8,17 +8,18 @@ class Constants {
 	const HTTP_TIMEOUT=1;
 	
 	/**
-	 * @var unknown_type
+	 * The max number of results per page.
 	 */
 	const PAGER_MAX_PER_PAGE=CECILIA_PAGER_MAX_PER_PAGE;
 	
 	/**
-	 *
+	 * 
 	 */
 	const PAGER_MAX_PAGES=CECILIA_PAGER_MAX_PAGES;
 	
 	/**
-	 * @var unknown_type
+	 * 
+	 * @var int
 	 */
 	const PAGER_MAX_ITEMS=CECILIA_PAGER_MAX_ITEMS;
 	
@@ -30,7 +31,7 @@ class Constants {
 	 * @var int CECILICA_DETAILED_INFO Should we use only the extended info methods when using the lookup API?
 	 * @see
 	 */
-	const DETAILED_INFO=1;
+	const DETAILED_INFO=true;
 	
 	
 	const SEARCH_DEFAULT='track';

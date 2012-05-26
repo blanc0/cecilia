@@ -1,12 +1,23 @@
 <?php
 namespace cecilia\core;
-
+/**
+ *
+ * Description Here
+ *
+ * @copyright 2012 Charlie Parks
+ * @author  Charlie Parks <charlie@blanc0.net>
+ * @namespace cecilia\core
+ * @package cecilia
+ * @subpackage core
+ *
+ */
 class Model {
+	
 	private $_type='none';
 	
 	function __construct($item){
 		foreach($item as $k=>$v){
-			
+			$this->$k=$v;
 		}
 	}
 	
@@ -14,11 +25,18 @@ class Model {
 		return $this->_type;
 	}
 	
-	function parse_spotify_availability($countries){
+	/**
+	 * 
+	 * @param unknown_type $countries
+	 * @return boolean
+	 */
+	function check_availability($countries){
 		if($countries=='worldwide'){
-			return 'Worldwide';
+			return true;
 		}else{
-			$countries = explode(' ',$countries);
+			
+				$countries = explode(' ',$countries);
+			
 		}
 		
 	}

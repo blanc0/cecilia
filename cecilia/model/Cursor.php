@@ -11,19 +11,6 @@ namespace cecilia\model;
  * @package cecilia
  * @subpackage core
  *
- *
- * 
- * @example
- * {
-		num_results: 31,
-		limit: 100,
-		offset: 0,
-		query: "contrails",
-		type: "track",
-		page: 1
-	}
- * 
- *
  */
 class Cursor {
 	

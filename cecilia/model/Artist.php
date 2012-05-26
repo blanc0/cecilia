@@ -1,26 +1,29 @@
 <?php
 namespace cecilia\model;
 /**
+ *
+ * The Model for Artists
+ *
+ * @copyright 2012 Charlie Parks
+ * @author  Charlie Parks <charlie@blanc0.net>
+ * @namespace cecilia\model
+ * @package cecilia
+ * @subpackage model
  * 
- * @author blanc0
- *
- *
- *
- *
- *
-	{
-		href: "spotify:artist:2pAWfrd7WFF3XhVt9GooDL",
-		name: "MF Doom",
-		popularity: "0.44859"
-	},
- *
  *
  */
-class Artist extends \cecilia\core\Model{
-	
-	private $_type='artist';
-	
+
+use cecilia\core\Model;
+
+class Artist extends Model{
+	/**
+	 * The Artist's name
+	 * @var string
+	 */
 	public $name;
+	/**
+	 * The Popularity
+	 */
 	public $popularity;
 	public $href;
 	
