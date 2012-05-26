@@ -1,6 +1,18 @@
 <?php
-namespace cecilia\core;
-
+namespace cecilia\util;
+/**
+ * 
+ * Just a list of 2-letter country codes to corresponding country names. No Big Deal.
+ * Based on list at http://www.iso.org/iso/list-en1-semic-3.txt
+ * 
+ * @copyright 2012 Cecilia
+ * @author  Charlie Parks ( charlie@blanc0.net )
+ * @see 	http://www.iso.org/iso/list-en1-semic-3.txt
+ * @namespace cecilia\util 
+ * @package cecilia
+ * @subpackage util
+ * 
+ */
 class CountryMappings{
   protected static $COUNTRIES = array(
 	"AD"=>"Andorra", 

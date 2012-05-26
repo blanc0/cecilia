@@ -2,43 +2,56 @@
 namespace cecilia\model;
 /**
  * 
- * 
- * {
-	album: {
-		released: "2011",
-		href: "spotify:album:3nQpe4V5rvpPtGFTi7YOrV",
-		name: "This Is Our Science",
-		availability: {
-			territories: "worldwide"
-		}
-	},
-	name: "Contrails (feat. Tegan Quin)",
-	popularity: "0.40011",
-	external-ids: [
-		{
-			type: "isrc",
-			id: "QMYFP1100065"
-		}
-	],
-	length: 178,
-	href: "spotify:track:390gABOSoevIo2J9g9JAWw",
-	artists: [
-		{
-			href: "spotify:artist:6PWRJs1FosHp8Cqx0Nmswj",
-			name: "Astronautalis"
-		}
-	],
-	track-number: "7"
-	}
+ * http://ws.spotify.com/lookup/1/.json?uri=spotify:album:6G9fHYDCoyEErUkHrFYfs4&extras=trackdetail
+{
+available: true,
+track-number: "1",
+popularity: "0.37271",
+external-ids: [
+{
+type: "isrc",
+id: "GBBKS9900090"
+}
+],
+length: 345,
+href: "spotify:track:3zBhJBEbDD4a4SO1EaEiBP",
+artists: [
+{
+href: "spotify:artist:4YrKBkKSVeqDamzBPWVnSJ",
+name: "Basement Jaxx"
+}
+],
+disc-number: "1",
+name: "Rendez-vu"
+},
  * 
  * 
  * 
  */
 class Track extends \cecilia\core\Model{
+	
 	private $_type='track';
 	
-	function __construct(){
-		
+	public $available;
+	
+	public $track_number;
+	
+	public $popularity;
+	
+	public $external_ids;
+	
+	public $length;
+	
+	public $href;
+	
+	public $artists;
+	
+	public $disc_number;
+	
+	public $name;
+	
+	function __construct($track){
+		parent::_construct($track);
 	}
 	
 	

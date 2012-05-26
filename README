@@ -7,6 +7,7 @@ Cecilia is a php library for interacting with the Spotify Web API.
 
 why?
 -------
+Because this.
 
 how?
 ------
@@ -21,8 +22,35 @@ Example Usage:
 	
 	$cecilia = new Cecilia();
 	
-	$search = $cecilia->search(); 
+	$albums = $cecilia->search('doom',array('type'=>'album');
+	
+	//or, if you are using php5.4
+	$albums = (new Cecilia)->search('doom',['type'=>'album']);
 	
 	
 	
-	  
+	
+	$play = (new Cecilia)->play('spotify:artist:23423423423',['theme'=>'light','size'=>640]);
+	// returns an iframe with the 
+	
+	
+Cecilia also comes with a ready to use api layer that speaks json.  This only requires one minor update to your web server configuration.
+
+	curl -0 http://yoursite.com/cecilia/search/doom?&type=artist&page=4&
+	
+	curl -0 http://yoursite.com/cecilia/lookup/doom
+	
+	curl -0 http://yoursite.com/cecilia/play/spotify:track:unr4nr348n
+	
+	
+nginx:  
+	server{
+			 
+			 rewrite ^/cecilia(.*)$ /path/to/cecilia/api.php?$1 break;
+			 
+		      ...
+		   }
+
+
+Apache:  
+	RewriteRule ^cecilia/(.*)$ /path/to/cecilia/cecilia.php/$1 [L]

@@ -1,0 +1,66 @@
+artist.json
+-------------------------------------
+{
+	href: "spotify:artist:2pAWfrd7WFF3XhVt9GooDL",
+	name: "MF Doom",
+	popularity: "0.44859"
+},
+
+
+album.json
+-------------------------------------
+
+
+{
+	name: "OPERATION: DOOMSDAY (Complete)",
+	popularity: "0.59077",
+	external-ids: [
+		{
+			type: "upc",
+			id: "829357451323"
+		}
+	],
+	href: "spotify:album:4UG3kz6qoHtNI1glQ2wdon",
+	artists: [
+		{
+			href: "spotify:artist:2pAWfrd7WFF3XhVt9GooDL",
+			name: "MF Doom"
+		}
+	],
+	availability: {
+		territories: "AD AE AF AG AI AL AM AN AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BM BN BO BR BS BT BV BW BY BZ CC CD CF CG CH CI CK CL CM CN CO CR CU CV CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY HK HM HN HR HT HU ID IE IL IN IO IQ IR IS IT JM JO JP KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR ST SV SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG UM US UY UZ VA VC VE VG VI VN VU WF WS YE YT ZA ZM ZW ZZ"
+	}
+}
+
+
+track.json
+----------------------------------------
+
+
+{
+	album: {
+		released: "2007",
+		href: "spotify:album:7IvmRtuLsTlRZhRS6KUQRn",
+		name: "MM...FOOD",
+			availability: {
+				territories: "AD AI AL AM AT AU AW AX AZ BA BE BG BM BV BY CA CH CY CZ DE DK EE ES FI FK FO FR GB GE GF GG GI GL GP GR GS HR HU IE IM IO IS IT JE KY LI LT LU LV MC MD ME MK MQ MS MT NC NL NO NZ PF PL PM PN PT RE RO RS RU SE SH SI SJ SK SM TC TF TR UA US VA VG WF YT"
+			}
+	},
+	name: "Rapp Snitch Knishes feat. Mr. Fantastik",
+	popularity: "0.50945",
+	external-ids: [
+		{
+			type: "isrc",
+			id: "USBWK0700049"
+		}
+	],
+	length: 172.893,
+	href: "spotify:track:25kGNSv0yGXZKaC79xzrvg",
+	artists: [
+		{
+			href: "spotify:artist:2pAWfrd7WFF3XhVt9GooDL",
+			name: "MF Doom"
+		}
+	],
+	track-number: "13"
+},

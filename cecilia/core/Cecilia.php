@@ -2,9 +2,9 @@
 namespace cecilia\core;
 
 /**
- *
- * @author blanc0
- *        
+ * @author 	Charlie Parks ( charlie@blanc0.net )
+ * @see 	https://developer.spotify.com/technologies/web-api/ 
+ * 
  */
 class Cecilia {
 	/**
@@ -22,13 +22,20 @@ class Cecilia {
 	 */
 	public $query_string;
 	
+	/**
+	 * @var unknown_type
+	 */
+	private $_curl;
+	
 	
 	/**
-	 * @var string $_SPOTIFY_API_ENDPOINT The Spotify 
+	 * @var string $_SPOTIFY_API_ENDPOINT The Spotify Enpoint for the Lookup Method
 	 */
 	public static $_SPOTIFY_LOOKUP_ENDPOINT='http://ws.spotify.com/lookup/1/.json';
 	
-	
+	/**
+	 * @var string $_SPOTIFY_API_ENDPOINT The Spotify Enpoint for the Search Method
+	 */	
 	public static $_SPOTIFY_SEARCH_ENDPOINT='http://ws.spotify.com/search/1/';
 	
 	
@@ -40,22 +47,15 @@ class Cecilia {
 	function __construct(){
 		// check to make sure cURL extension is enabled.
 		if(!function_exists('curl_init')){
-			$this->_use_curl=false;
+			throw new CeciliaError('An installation of the cURL extension does not exist! Please install cURL in PHP before using Cecilia');
 		}
 	}
 	
-	
-	private function _make_call($query){
-		if(defined('CECLIA_CACHE_ENABLED') && CECLIA_CACHE_ENABLED==1){
-			$rs = CeciliaCache::get();
-		}
-	}
 	
 	
 	/**
 	 * @param string $query
 	 * @param array $options
-	 * 
 	 * 
 	 * http://ws.spotify.com/search/1/album.json?q=astronautalis
 	 * http://ws.spotify.com/search/1/track.json?q=contrails
@@ -79,7 +79,7 @@ class Cecilia {
 		
 		$response = $this->_search();
 		
-		$data = new \cecilia\model\Response($response);
+		$data = new \cecilia\model\SpotifyResult($response);
 		
 		if($data->cursor->has_next){
 			
@@ -99,100 +99,129 @@ class Cecilia {
 					$page=3;
 					
 				}else{
-					
-					$this->query_string = '?q='.json_encode($query) . '&page='.$page;
-					$offset = ($page*100);
-					$page++;
-					
+					if($offset < $threshold){
+						$this->query_string = '?q='.json_encode($query) . '&page='.$page;
+						$offset = ($page*100);
+						$page++;
+					}
 				}
 				
-				$tmp = new \cecilia\model\Response($this->_search());
+				$tmp = new \cecilia\model\SpotifyResult($this->_search());
 				$tmp_data = $tmp->data;
 				$tmp_array=array_merge($tmp_data,$tmp_array);
 				
 				$i++;
-				
-			
 			}	
-			
-			
 		}
-		
 		$data->data = array_merge($data->data,$tmp_array);
-		
-		
 		// now, we have the first page of results.  from this we can move forward with putting together the aggregated result set for caching.
 		
+		if(isset($options['sort'])){
+			
 		
-		
-		if(isset($options['filter'])){
 			
-			$filter = $options['filter'];
-			$filters = explode(':',$filter);
-			
-			switch($filter){
-				case 'alpha:desc':
-				case 'alpha:asc':
-				case 'popularity:asc':
-				case 'popularity:desc':
-					usort($data->data,function($a,$b) use ($filters) {
-						switch($filters[0]){
-							case "popularity":
-								if($filters[1]=='asc'){
-									return ($a->popularity > $b->popularity ? 1 : -1);
-								}else{
-									return ($a->popularity < $b->popularity ? 1 : -1);
-								}
-								
-								break;
-						}
-					});
-					break;																	
-				default:
-					throw new \Exception('You Must Pass a Valid Filter!');
-			}
-			
-			$it = new ResponseIterator($data->data);
-			$filtered = new ResponseFilterIterator($it);
-			return $data;
 		}
+		$it = new SearchIterator($data->data);
+		$filtered = new SearchFilter($it);
+		return $data;
 	
 	}
 	
-	public function lookup(){
+	public function lookup($q,$options){
+		
 		$this->base_uri=self::$_SPOTIFY_LOOKUP_ENDPOINT;
+		$this->query_string = '?uri=spotify:artist:2pAWfrd7WFF3XhVt9GooDL&extras=albumdetail';
+		$this->_lookup();
+		
 	}
 	
-	public function filter(){}
+	function play($uri,$player_options){
+		
+	}
+	
+	public function filter(){
+		
+	}
 	
 	
-	private function _lookup(){}
+	private function _lookup(){
+		if($this->_use_curl===true){
+			$this->_curl = curl_init();
+			curl_setopt($this->_curl,CURLOPT_URL,$this->base_uri.$this->query_string);
+			curl_setopt($this->_curl,CURLOPT_CONNECTTIMEOUT,CECILIA_HTTP_TIMEOUT);
+			//curl_setopt($this->_curl, CURLOPT_HEADER, 1);
+			curl_setopt($this->_curl,CURLOPT_HTTPHEADER,array('If-Modified-Since: ' . time() -  1000));
+			curl_setopt($this->_curl,CURLOPT_RETURNTRANSFER,1);
+			$response = curl_exec($this->_curl);
+				var_dump($response);
+			if(!curl_errno($this->_curl)){
+		
+				//list($headers, $content) = explode("\r\n\r\n", $response, 2);
+		
+				//var_dump($headers);
+		
+				$info = curl_getinfo($this->_curl);
+				$status_code = $info['http_code'];
+			}else{
+				$status_code = curl_errno($this->_curl);
+			}
+				
+			//
+			if($status_code==200 || $status_code==304){
+		}
+				
+			var_dump($status_code);
+		}else{
+			$response = file_get_contents($this->base_uri.$this->query_string);
+		}
+		//var_dump($response);
+		return $response;		
+	}
 	
 	private function _search(){
 		if($this->_use_curl===true){
 			$this->_curl = curl_init();
 			curl_setopt($this->_curl,CURLOPT_URL,$this->base_uri.$this->query_string);
 			curl_setopt($this->_curl,CURLOPT_CONNECTTIMEOUT,CECILIA_HTTP_TIMEOUT);
-			curl_setopt($this->_curl, CURLOPT_HEADER, 1);
+			//curl_setopt($this->_curl, CURLOPT_HEADER, 1);
+			curl_setopt($this->_curl,CURLOPT_HTTPHEADER,array('If-Modified-Since: ' . time() -  1000));
 			curl_setopt($this->_curl,CURLOPT_RETURNTRANSFER,1);
 			$response = curl_exec($this->_curl);
 			
 			if(!curl_errno($this->_curl)){
 				
-				list($headers, $content) = explode("\r\n\r\n", $response, 2);
+				//list($headers, $content) = explode("\r\n\r\n", $response, 2);
 				
-				var_dump($headers);
+				//var_dump($headers);
 				
 				$info = curl_getinfo($this->_curl);
 				$status_code = $info['http_code'];
 			}else{
 				$status_code = curl_errno($this->_curl);
 			}
+			
+			// 
+			if($status_code==200 || $status_code==304){}
+			
 			var_dump($status_code);
 		}else{
 			$response = file_get_contents($this->base_uri.$this->query_string);
 		}
+		//var_dump($response);
 		return $response;
 	}
+	
+	private function _parse_headers($headers){
+		//
+	}
+	
+	
+	
+	function batch_search($q,$options){
+		ini_set('script_timeout',1000000);
+	}
+	
+	
+	function storage(){}
 	
 }

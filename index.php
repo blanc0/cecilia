@@ -4,7 +4,7 @@
 	require_once 'cecilia.bootstrap.php';
 	$c = new \cecilia\core\Cecilia();
 	
-	$results = $c->search('doom',['type'=>'artist','filter'=>'popularity:desc']);
+	$results = $c->lookup('doom',['type'=>'artist']);
 	var_dump($results);
 	foreach($results->cursor as $k=>$v){
 		echo $k .  ' | ' . $v."<hr/>";
@@ -25,5 +25,9 @@
 	 */
 	
 	
+	// get_all_albums();
+	
+	// get_all_tracks();
 	
 	
+?>
