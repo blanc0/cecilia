@@ -1,8 +1,6 @@
 <?php
 
-if(!date_default_timezone_get()){
 	date_default_timezone_set('GMT');
-}
 
 
 
@@ -141,6 +139,7 @@ spl_autoload_register(null,false);
 
 function cecilia_autoload($className){
 	if(!class_exists($className)):
+		$className = str_replace('cecilia','',$className);
 		if(!file_exists(CECILIA_BASE_PATH.str_replace("\\","/",$className).'.php')):
 			return false;
 		endif;

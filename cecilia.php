@@ -1,5 +1,5 @@
 <?php
-	include 'cecilia.bootstrap.php';
+	include 'cecilia/cecilia.bootstrap.php';
 
 	use cecilia\core\API,
 		cecilia\model\Response;

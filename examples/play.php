@@ -1,5 +1,5 @@
 <?php
-	require_once '../cecilia.bootstrap.php';
+	require_once '../cecilia/cecilia.bootstrap.php';
 	
 	$c = new \cecilia\core\Cecilia();
 ?>
