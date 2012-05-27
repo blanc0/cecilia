@@ -13,35 +13,70 @@ namespace cecilia\model;
  *
  */
 class Cursor {
-	
+	/**
+	 * Total Results for the response from Spotify for this single call.
+	 * @var int
+	 */
 	public $total;
+	/**
+	 * Total Results for the response from Spotify for this single call.
+	 * @var int
+	 */
 	public $offset;
+	/**
+	 * Total Results for the response from Spotify for this single call.
+	 * @var int
+	 */	
 	public $has_next=false;
+	/**
+	 * Total Results for the response from Spotify for this single call.
+	 * @var int
+	 */	
 	public $next;
+	/**
+	 * Link to the previous page of results from Spotify for given query.
+	 * 
+	 * if $this->has_prev is TRUE, this will be a link to the next set of results.
+	 * @var mixed
+	 */	
 	public $prev;
+	/**
+	 * Does this have a previous
+	 * @var boolean
+	 */	
 	public $has_prev=false;
+	/**
+	 * The total pages of results from Spotify for given query.
+	 * @var int
+	 */	
 	public $total_pages;
+	/**
+	 * The page number requested
+	 * @var int
+	 */	
 	public $page;
+	/**
+	 * The data type, one of : artist, album, track
+	 * @var string
+	 */	
 	public $type;
-	public $aggregate=false;
 	
 	
 	
-	function __construct($item){
-
+	function __construct($response){
 		// do math and other things to populate member variables.
 		
-		if($item->num_results>$item->limit){
-			$this->total_pages = ceil($item->num_results/$item->limit);
+		if($response->info->num_results>$response->info->limit){
+			$this->total_pages = ceil($response->info->num_results/$response->info->limit);
 		}else{
 			$this->total_pages=1;
 		}
 		
 		
-		$this->total = $item->num_results;
-		$this->offset = $item->offset;
-		$this->page = $item->page;
-		$this->type = $item->type;
+		$this->total = $response->info->num_results;
+		$this->offset = $response->info->offset;
+		$this->page = $response->info->page;
+		$this->type = $response->info->type;
 		
 		
 		

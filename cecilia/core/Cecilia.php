@@ -8,6 +8,7 @@ namespace cecilia\core;
  * The autoloader included will handle including all of the required classes while executing a routine.
  * 
  * Here are some examples of how to call Cecilia.  Additional examples are available in the examples folder that comes with this package.
+ * 
  * <code>
  * 
  * // A simple search....
@@ -112,7 +113,7 @@ class Cecilia {
 		 
 		$this->base_uri = self::$_SPOTIFY_SEARCH_ENDPOINT.strtolower($options['type']).'.json';
 		// if page is set, add that as an additional parameter
-		$this->query_string = '?q='.json_encode($query) .	(isset($options['page']) ? '&page='.$options['page'] : '' );
+		$this->query_string = '?q='.json_encode($query) .	(isset($options['page']) ? '&page='.Constants::PAGER_MAX_PAGES * $options['page'] : '' );
 		
 		$response = $this->_call_spotify_api();
 		
@@ -122,28 +123,22 @@ class Cecilia {
 			
 			$threshold = ($data->cursor->total < CECILIA_PAGER_MAX_ITEMS ? $data->cursor->total : CECILIA_PAGER_MAX_ITEMS );
 			
-			$offset = 100;
+			$offset = Constants::SPOTIFY_RESULTS_PER_PAGE;
 			$i=0;
 			$tmp_array = array();
 			
 			while($offset < $threshold){
-				
-				
 				if($i==0){
-
+					
 					$p = $data->cursor->page+1;
 					$this->query_string = '?q='.json_encode($query) . '&page='.$p;
-					$offset = 200;
-					$page=3;
-					
+					$offset = $offset*2;
+					$p++;
 				}else{
-					
 					if($offset < $threshold){
-						
-						$this->query_string = '?q='.json_encode($query) . '&page='.$page;
-						$offset = ($page+100);
-						$page++;
-						
+						$this->query_string = '?q='.json_encode($query) . '&page='.$p;
+						$offset = ($p*Constants::SPOTIFY_RESULTS_PER_PAGE);
+						$p++;
 					}
 					
 				}
@@ -153,9 +148,21 @@ class Cecilia {
 				$tmp_array=array_merge($tmp_data,$tmp_array);
 				
 				$i++;
-			}	
+				if($i>4){
+					die(var_dump($tmp_array));
+				}
+			}
+			$pager = new Pager($tmp);	
+		}else{
+			$pager = new Pager($data);
 		}
-		$data->data = array_merge($data->data,$tmp_array);
+		
+		if(isset($tmp_array)){
+			$data->data = array_merge($data->data,$tmp_array);
+		}
+		
+		
+		
 		// now, we have the first page of results.  from this we can move forward with putting together the aggregated result set for caching.
 		
 		$parsed=array();
@@ -174,9 +181,13 @@ class Cecilia {
 		// if the filter option is set, filter the result.
 		$filtered = new Filter($it);
 		
-		$pager = new Pager($parsed);
 		
-		return new Response(1, $parsed, $pager);
+		
+		return( 
+				$it->count()>0
+				? new Response(1, $parsed, $pager)
+				: new Response(0, $parsed, $pager)
+			   );
 	
 	}
 	
@@ -266,17 +277,11 @@ class Cecilia {
 		
 		
 	}
-	
-	public function filter(){
-		
-	}
-	
-	
 	private function _call_spotify_api(){
 		
 		
 		$this->_curl = curl_init();
-		
+		var_dump($this->base_uri.$this->query_string);
 		curl_setopt($this->_curl,CURLOPT_URL,$this->base_uri.$this->query_string);
 		curl_setopt($this->_curl,CURLOPT_CONNECTTIMEOUT,Constants::HTTP_TIMEOUT);
 		curl_setopt($this->_curl, CURLOPT_HEADER, 1);
@@ -295,11 +300,11 @@ class Cecilia {
 			throw new CeciliaError('Error calling API: ' . $this->base_uri.$this->query_string);
 		}
 
-		//var_dump($response);
 		return $content;		
 	}
 	
 	public function batch(){}
+	
 	
 	
 	private function _extract_headers($headers){
@@ -311,9 +316,5 @@ class Cecilia {
 		);
 		var_dump(strtotime($this->expires));
 		return;
-	}
-	
-	private function _set_query_string(){
-			
 	}
 }

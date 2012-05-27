@@ -1,12 +1,12 @@
 <?php
+	
 	error_reporting(E_ALL);
 	ini_set('display_errors','On');
 	require_once 'cecilia.bootstrap.php';
 	$c = new \cecilia\core\Cecilia();
 	
-	$results = $c->search('doom',['type'=>'artist']);
+	$results = $c->search('sand',['type'=>'track','page'=>44]);
 	var_dump($results);
-
 	
 	
 	

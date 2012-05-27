@@ -14,6 +14,11 @@ namespace cecilia\util;
  * 
  */
 class CountryMappings{
+	
+ protected static $SUPPORTED_SPOTIFY_COUNTRIES=array(
+ 	'US','AU'
+ );
+	
   protected static $COUNTRIES = array(
 	"AD"=>"Andorra", 
 	"AE"=>"United Arab Emirates", 

@@ -60,7 +60,7 @@ class Track extends \cecilia\core\Model{
 	public $name;
 	
 	function __construct($track){
-		parent::_construct($track);
+		parent::__construct($track);
 	}
 	
 	

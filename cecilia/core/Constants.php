@@ -1,29 +1,49 @@
 <?php
 namespace cecilia\core;
-
+/**
+ *
+ * The Constants for Cecilia
+ * 
+ * Just a class with constants for use throughtout the application.
+ *
+ *
+ * @copyright 2012 Charlie Parks
+ * @author  Charlie Parks <charlie@blanc0.net>
+ * @namespace cecilia\core
+ * @package cecilia
+ * @subpackage core
+ *
+ */
 class Constants {
 	/**
-	 * @var int HTTP_TIMEOUT the max number of seconds for a round-trip HTTP request to execute.
+	 * The max number of seconds for a round-trip HTTP request to execute.
+	 * @var int
 	 */
 	const HTTP_TIMEOUT=1;
 	
 	/**
 	 * The max number of results per page.
+	 * @var int
 	 */
 	const PAGER_MAX_PER_PAGE=CECILIA_PAGER_MAX_PER_PAGE;
 	
 	/**
-	 * 
+	 * The max number of pages.
+	 * @var int
 	 */
 	const PAGER_MAX_PAGES=CECILIA_PAGER_MAX_PAGES;
 	
 	/**
-	 * 
+	 * The max number of items for the internal spotify pager
 	 * @var int
 	 */
 	const PAGER_MAX_ITEMS=CECILIA_PAGER_MAX_ITEMS;
 	
-	
+	/**
+	 * The 2-letter country code used to check availability.
+	 * @see cecilia\util\CountryMappings
+	 * @var string
+	 */
 	const COUNTRY_CODE="US";
 	
 	
@@ -33,8 +53,20 @@ class Constants {
 	 */
 	const DETAILED_INFO=true;
 	
+	/**
+	 * @var unknown_type
+	 */
+	const SPOTIFY_RESULTS_PER_PAGE=100;
+	
+	
+	const CUSTOM_PLAYLIST_MAX_TRACKS=10;
+	
 	
 	const SEARCH_DEFAULT='track';
+	
+
+	const DEFAULT_TRACKSET_TITLE="Playlist by Cecilia...";
+	
 	
 	/*******************************************************************************
 	 * CECILIA STORAGE CONFIGURATION (ENABLED BY DEFAULT) -
@@ -43,8 +75,6 @@ class Constants {
 	*
 	*******************************************************************************/
 	
-	
-	const DEFAULT_TRACKSET_TITLE="Playlist by Cecilia...";
 	
 	/**
 	 * @var unknown_type

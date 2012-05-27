@@ -2,7 +2,9 @@
 namespace cecilia\model;
 /**
  *
- * Description Here
+ * The main result model populated when calling the Spotify API.
+ * 
+ * 
  *
  * @copyright 2012 Charlie Parks
  * @author  Charlie Parks <charlie@blanc0.net>
@@ -24,7 +26,7 @@ class SpotifyResult {
 	function __construct($data){
 		$data = json_decode($data);
 		$this->type = $data->info->type;
-		$this->cursor = new \cecilia\model\Cursor($data->info);
+		$this->cursor = new \cecilia\model\Cursor($data);
 		
 		if($this->cursor->total<1){
 			$this->success=0;

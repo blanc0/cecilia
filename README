@@ -44,13 +44,37 @@ Cecilia also comes with a ready to use api layer that speaks json.  This only re
 	
 	
 nginx:  
-	server{
+
+    server{
+			
+			  ...
 			 
-			 rewrite ^/cecilia(.*)$ /path/to/cecilia/api.php?$1 break;
+			  rewrite ^/cecilia(.*)$ /path/to/cecilia/cecilia.php?$1 break;
 			 
 		      ...
-		   }
+	       }
 
 
-Apache:  
-	RewriteRule ^cecilia/(.*)$ /path/to/cecilia/cecilia.php/$1 [L]
+  
+Apache:    
+    
+    RewriteRule ^cecilia/(.*)$ /path/to/cecilia/cecilia.php/$1 [L]
+	
+	
+	
+
+	
+References  
+----------
+
+Developer Site  
+https://developer.spotify.com/  
+
+Developer Web API Docs  
+https://developer.spotify.com/technologies/web-api/  
+
+Play Button Docs  
+https://developer.spotify.com/technologies/spotify-play-button/documentation  
+
+Linking to Spotify  
+http://www.spotify.com/us/blog/archives/2008/01/14/linking-to-spotify/  

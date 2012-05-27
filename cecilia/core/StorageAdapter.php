@@ -8,6 +8,10 @@ namespace cecilia\core;
  */
 interface StorageAdapter {
 	
+	public $type;
+	
+	function __construct($type);
+	
 	function init();
 	
 	function get($key);
@@ -16,6 +20,7 @@ interface StorageAdapter {
 	
 	function remove($key);
 	
+//	function update($key,$value);
 }
 
 ?>
