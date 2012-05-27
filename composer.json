@@ -1,5 +1,5 @@
 {
-    "name": "cecilia/cecilia",
+    "name": "blanc0/cecilia",
     "type": "library",
     "description": "A PHP wrapper for the Spotify Web API and Play Button API",
     "keywords": ["spotify","cecilia"],
