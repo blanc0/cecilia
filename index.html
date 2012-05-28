@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>Cecilia by blanc0</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Cecilia</h1>
+        <h2>Cecilia is a highly configurable PHP wrapper for the Spotify Web API</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/blanc0/cecilia/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/blanc0/cecilia/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/blanc0/cecilia" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>Cecilia</h1>
+
+<h2>What?</h2>
+
+<p>Cecilia is a php library for interacting with the Spotify Web API.   </p>
+
+<h2>why?</h2>
+
+<p>Because this.</p>
+
+<h2>how?</h2>
+
+<p>Example Usage:  </p>
+
+<pre><code>// Search Example.
+
+require_once('/path/to/cecilia/cecilia.phar');
+
+$albums = (new Cecilia)-&gt;search('doom',['type'=&gt;'album']);
+
+
+//Play Example.
+
+$play = (new Cecilia)-&gt;play('spotify:artist:23423423423',['theme'=&gt;'light','size'=&gt;640]);
+</code></pre>
+
+<p>Responses  </p>
+
+<ul>
+<li>Cecilia Adds Additional Response Information.</li>
+<li>
+<p>Below is an example of a Cecilia Response:</p>
+
+<pre><code>$albums = (new Cecilia)-&gt;search('doom',['type'=&gt;'album']);
+var_dump($albums);
+
+{"success":1,
+ "data":[
+    {
+        "name":"album name",
+        "popularity":0.5,
+        "href":"spotify:album:fjsdjof490jf49",
+        ...
+    },
+    ...
+ ],
+ "pager":{
+    "has_next":true,
+    "has_prev":false,
+    "total_pages":12,
+    ...
+
+ },
+ "message":""
+ }
+</code></pre>
+</li>
+<li><p>If <code>success</code> is <code>0</code>, we know something failed and we should get the error in the <code>message</code> field.</p></li>
+</ul><p>Cecilia also comes with a ready to use api layer that speaks json.  This only requires one minor update to your web server configuration.  </p>
+
+<pre><code>nginx:  
+
+    server{
+              ...
+              rewrite ^/cecilia(.*)$ /path/to/cecilia/api.php?$1 break;      
+              ...
+           }
+
+Apache:    
+
+    RewriteRule ^cecilia/(.*)$ /path/to/cecilia/api.php/$1 [L]
+</code></pre>
+
+<p>Once Your Configuration is updated and webserver restarted, try calling one of the following URLs:  </p>
+
+<pre><code>curl -0 http://yoursite.com/cecilia/search/doom?type=track&amp;page=4&amp;
+
+curl -0 http://yoursite.com/cecilia/lookup/doom?type=artist
+
+curl -0 http://yoursite.com/cecilia/play/spotify:track:unr4nr348n?t=white&amp;h=720&amp;w=300 
+</code></pre>
+
+<p>Response Caching / Storage</p>
+
+<h2>References  </h2>
+
+<p>Developer Site<br><a href="https://developer.spotify.com/">https://developer.spotify.com/</a>  </p>
+
+<p>Developer Web API Docs<br><a href="https://developer.spotify.com/technologies/web-api/">https://developer.spotify.com/technologies/web-api/</a>  </p>
+
+<p>Play Button Docs<br><a href="https://developer.spotify.com/technologies/spotify-play-button/documentation">https://developer.spotify.com/technologies/spotify-play-button/documentation</a>  </p>
+
+<p>Linking to Spotify<br><a href="http://www.spotify.com/us/blog/archives/2008/01/14/linking-to-spotify/">http://www.spotify.com/us/blog/archives/2008/01/14/linking-to-spotify/</a>  </p>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
