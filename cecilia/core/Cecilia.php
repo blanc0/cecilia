@@ -38,54 +38,75 @@ namespace cecilia\core;
  * @see 	https://developer.spotify.com/technologies/web-api/
  *
  */
-use cecilia\model\Pager;
-
-use cecilia\model\SpotifyURI;
-
-use cecilia\model\Response;
+use cecilia\model\Pager,
+    cecilia\model\SpotifyURI,
+    cecilia\model\Response;
 
 class Cecilia {
 	/**
+	 * Is curl available?
 	 * @type boolean
 	 */
 	private $_use_curl=true;
 
 	/**
-	 * @var unknown_type
+	 * The base URI / endpoint to connect to for Spotify Metadata API Calls
+	 * @var string
 	 */
 	public $base_uri;
 	
 	/**
-	 * @var unknown_type
+	 * The query string to call to the Spotify Metadata API
+	 * @var string
 	 */
 	public $query_string;
 	
 	/**
-	 * @var unknown_type
+	 * The curl resource
+	 * @var resource
 	 */
 	private $_curl;
 	
+	/**
+	 * The Storage object.
+	 * @var Storage
+	 */
+	private $_storage;
 	
 	/**
-	 * @var string $_SPOTIFY_API_ENDPOINT The Spotify Enpoint for the Lookup Method
+	 * The Spotify Enpoint for the Lookup Method
+	 * @var string 
 	 */
 	public static $_SPOTIFY_LOOKUP_ENDPOINT='http://ws.spotify.com/lookup/1/.json';
 	
 	/**
-	 * @var string $_SPOTIFY_API_ENDPOINT The Spotify Enpoint for the Search Method
+	 * The Spotify Enpoint for the Search Method
+	 * @var string 
 	 */	
 	public static $_SPOTIFY_SEARCH_ENDPOINT='http://ws.spotify.com/search/1/';
 	
-	
+	/**
+	 * The available spotify search method names and associated json endpoint signatures.
+	 * @var array
+	 */
 	public static $_SPOTIFY_SEARCH_METHODS=array('artist'=>'artist.json','album'=>'album.json','track'=>'track.json');
 	
 	/**
-	 *
+	 * Checks to make sure that curl exists.
 	 */
 	function __construct(){
 		// check to make sure cURL extension is enabled.
 		if(!function_exists('curl_init')){
 			throw new CeciliaError('An installation of the cURL extension does not exist! Please install cURL in PHP before using Cecilia');
+		}
+		
+		if(Constants::STORAGE_ENABLED){
+			try{
+				$this->_storage = new Storage();
+			}catch(CeciliaError $e){
+				return new Response(0,0,0,$e->getMessage());
+			}
+			
 		}
 	}
 	
@@ -277,6 +298,14 @@ class Cecilia {
 		
 		
 	}
+	/**
+	 * Calls the spotify API with the query_string and base_uri set from the method calling it.
+	 * 
+	 * Additionally, this method will extract and set the headers, which is needed for Storage control.
+	 * 
+	 * @throws CeciliaError
+	 * @return multitype: 
+	 */
 	private function _call_spotify_api(){
 		
 		
@@ -308,13 +337,13 @@ class Cecilia {
 	
 	
 	private function _extract_headers($headers){
+		
 		preg_match('/Expires: (.*)GMT/',$headers,$matches);
 		
 		($matches 
 		 	 ? $this->expires=ltrim(rtrim($matches[1])) . ' GMT' 
 			 : $this->expires=false
 		);
-		var_dump(strtotime($this->expires));
 		return;
 	}
 }

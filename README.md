@@ -54,9 +54,9 @@ Responses
 		 "message":""
 		 }
  	
- - If success is 0, we know something failed and we should get the error in the message field.
+ - If `success` is `0`, we know something failed and we should get the error in the `message` field.
 
- - Cecilia also comes with a ready to use api layer that speaks json.  This only requires one minor update to your web server configuration.
+Cecilia also comes with a ready to use api layer that speaks json.  This only requires one minor update to your web server configuration.  
 		
 	nginx:  
 	
@@ -80,8 +80,10 @@ Once Your Configuration is updated and webserver restarted, try calling one of t
 	curl -0 http://yoursite.com/cecilia/play/spotify:track:unr4nr348n?t=white&h=720&w=300 
 
 
+Response Caching / Storage
 
-	
+
+
 References  
 ----------
 

@@ -118,8 +118,13 @@ class Player {
 	
 	function get_player_size(){}
 	
-	function get_player(SpotifyURI $uri,$options){
-		
+	function get_player($uri,$options){
+		if($uri instanceof SpotifyURI){
+			$this->_build_player_from_uri();
+		}else{
+			$this->_build_player_from_list();
+		}
+		//a spotify uri
 	}
 	
 	private function _parse_options(){}

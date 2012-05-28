@@ -1,9 +1,6 @@
 <?php
 
-	date_default_timezone_set('GMT');
-
-
-
+date_default_timezone_set('GMT');
 /*******************************************************************************
  * CECILA GLOBAL CONFIGURATION 
 *******************************************************************************/
@@ -130,13 +127,82 @@ define("CECILIA_STORAGE_MEMCACHE_HOST","localhost");
 define("CECILIA_STORAGE_MEMCACHE_PORT",11211);
 
 
+/******************************************************************
+ * CECILIA STORAGE - REDIS
+******************************************************************/
+/**
+ * The REDIS Host
+ * @var string
+ */
+define("CECILIA_STORAGE_REDIS_HOST","localhost");
+/**
+ * The REDIS Port
+ * @var int
+ */
+define("CECILIA_STORAGE_REDIS_PORT",11211);
+/**
+ * The REDIS Port
+ * @var int
+ */
+define("CECILIA_STORAGE_REDIS_PREFIX","cecilia_");
+
+/**
+ * The REDIS Port
+ * @var int
+ */
+define("CECILIA_STORAGE_REDIS_SOCKET",false);
+
+
+/******************************************************************
+ * CECILIA STORAGE - PostgreSQL ( PGSQL )
+******************************************************************/
+/**
+ * The PGSQL Host
+ * @var string
+ */
+define("CECILIA_STORAGE_PGSQL_HOST","host=localhost");
+/**
+ * The PGSQL Host
+ * @var string
+ */
+define("CECILIA_STORAGE_PGSQL_PORT","port=5432");
+
+/**
+ * The PGSQL Host
+ * @var string
+ */
+define("CECILIA_STORAGE_PGSQL_USER","");
+/**
+ * The PGSQL Host
+ * @var string
+ */
+define("CECILIA_STORAGE_PGSQL_PASS","");
+/**
+ * The PGSQL Host
+ * @var string
+ */
+define("CECILIA_STORAGE_PGSQL_DB","dbname=myapp");
+/**
+ * The PGSQL Host
+ * @var string
+ */
+define("CECILIA_STORAGE_PGSQL_OPTIONS","options='--client_encoding=UTF8'");
+/**
+ * The PGSQL Host
+ * @var string
+ */
+define("CECILIA_STORAGE_PGSQL_TABLE","cecilia");
+
+
 /************************************************************************************
  * CECILIA AUTOLOADER 
  **********************************************************************************/
 
-
 spl_autoload_register(null,false);
 
+/**
+ * SPL Autoloader for the Cecilia library.  This will load all necessary classes if this file is included.
+ */
 function cecilia_autoload($className){
 	if(!class_exists($className)):
 		$className = str_replace('cecilia','',$className);

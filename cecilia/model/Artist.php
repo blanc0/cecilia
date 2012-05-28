@@ -2,7 +2,7 @@
 namespace cecilia\model;
 /**
  *
- * The Model for Artists
+ * The Artist Model
  *
  * @copyright 2012 Charlie Parks
  * @author  Charlie Parks <charlie@blanc0.net>
@@ -23,10 +23,18 @@ class Artist extends Model{
 	public $name;
 	/**
 	 * The Popularity
+	 * @var float
 	 */
 	public $popularity;
+	/**
+	 * The artist Spotify URI
+	 * @var string
+	 */
 	public $href;
-	
+	/**
+	 * Populates the member variables with values from spotify api response
+	 * @param object $item
+	 */
 	function __construct($item){
 	 	$this->name=$item->name;
 	 	$this->popularity=(int)$item->popularity;

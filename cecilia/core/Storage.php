@@ -43,9 +43,9 @@ class Storage{
 	public function set($key,$data,$expires){
 		try{
 			return (
-					  $this->_adapter->set($key,$data,$expires)
-					? true
-					: false
+				  $this->_adapter->set($key,$data,$expires)
+				? true
+				: false
 			);
 		}catch(\Exception $e){
 			throw new CeciliaError('Failed to call set()');
@@ -59,9 +59,9 @@ class Storage{
 		try{
 			$data = $this->_adapter->get($key);
 			return (
-					 !isset($data->expired) && isset($data->data)
-					? true
-					: false
+				 !isset($data->expired) && isset($data->data)
+				? true
+				: false
 			);
 		}catch(\Exception $e){
 			throw new CeciliaError('Failed to call get()');
@@ -74,9 +74,9 @@ class Storage{
 	public function remove($key){
 		try{
 			return (
-					$this->_adapter->remove($key)
-					? true
-					: false
+				$this->_adapter->remove($key)
+				? true
+				: false
 			);
 		}catch(\Exception $e){
 			throw new CeciliaError('Failed to call set()');
