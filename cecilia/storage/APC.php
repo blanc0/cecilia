@@ -20,8 +20,8 @@ use cecilia\core\CeciliaError,
 
 class APC implements StorageAdapter {
 
-	function __construct($type){
-		$this->type=$type;
+	function __construct(){
+		
 	}
 		
 	public function remove($key) {
@@ -49,10 +49,11 @@ class APC implements StorageAdapter {
 		);	
 	}
 	
-	public function init() {
+	public function init($type) {
 		if(!function_exists('apc_store')){
 			throw new CeciliaError('APC Functions Do Not Exist! Please check to make sure you have APC installed.');
 		}
+		$this->type=$type;
 	}
 }
 

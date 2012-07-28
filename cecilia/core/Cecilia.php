@@ -99,15 +99,6 @@ class Cecilia {
 		if(!function_exists('curl_init')){
 			throw new CeciliaError('An installation of the cURL extension does not exist! Please install cURL in PHP before using Cecilia');
 		}
-		
-		if(Constants::STORAGE_ENABLED){
-			try{
-				$this->_storage = new Storage();
-			}catch(CeciliaError $e){
-				return new Response(0,0,0,$e->getMessage());
-			}
-			
-		}
 	}
 	
 	
@@ -118,12 +109,15 @@ class Cecilia {
 	 * @param array $options
 	 * @link https://developer.spotify.com/technologies/web-api/search/
 	 * 
-	 * 
 	 */
 	function search($query,$options){
 		
 		if($query==''){
 			throw new \Exception;
+		}
+		
+		if(!isset($options['type'])){
+			$options['type']='track';
 		}
 		
 		if(!array_key_exists($options['type'], self::$_SPOTIFY_SEARCH_METHODS)){
@@ -307,7 +301,15 @@ class Cecilia {
 	 * @return multitype: 
 	 */
 	private function _call_spotify_api(){
-		
+		if(Constants::STORAGE_ENABLED){
+			try{
+				$this->_storage = new Storage($this->type);
+				var_dump($this->_storage);
+			}catch(CeciliaError $e){
+				return new Response(0,0,0,$e->getMessage());
+			}
+				
+		}
 		
 		$this->_curl = curl_init();
 		var_dump($this->base_uri.$this->query_string);
@@ -334,7 +336,21 @@ class Cecilia {
 	
 	public function batch(){}
 	
-	
+	private function _parse_options($options){
+		
+		// for search and lookup
+		$this->page = (isset($options['page']) ?  $options['page'] : false );
+		$this->type = (isset($options['type']) ?  $options['type'] : false );
+		
+		// for player
+		$this->h 		= 	(isset($options['h']) ?  $options['h'] : false );
+		$this->w 		= 	(isset($options['w']) ?  $options['w'] : false );
+		$this->theme 	= 	(isset($options['theme']) ?  $options['theme'] : false );
+		$this->sort 	= 	(isset($options['sort']) ?  $options['sort'] : false );
+		$this->filter 	= 	(isset($options['filter']) ?  $options['filter'] : false );
+		$this->max 		= 	(isset($options['max']) ?  $options['max'] : false );
+		
+	}
 	
 	private function _extract_headers($headers){
 		

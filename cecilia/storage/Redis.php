@@ -39,6 +39,9 @@ class Redis implements StorageAdapter {
 	/**
 	 * Closes the connection oto the Redis Server.
 	 */
+	
+	public $type;
+	
 	function __destruct(){
 		if($this->_conn!==FALSE){
 			$this->_conn->close();
@@ -86,30 +89,34 @@ class Redis implements StorageAdapter {
 	 * Sets prefix and type.
 	 * @param string $type
 	 */
-	public function __construct($type) {
-		$this->type=$type;
-		$this->prefix = CECILIA_STORAGE_REDIS_PREFIX . $this->type.'_';
+	public function __construct() {
+		
 	}
 	/**
 	 * Initializes the connection to the Redis Database.
 	 * 
 	 * @see cecilia\core.StorageAdapter::init()
 	 */
-	public function init() {
+	public function init($type) {
+		
+		
 		
 		if(!class_exists('Redis')){
 			throw new CeciliaError('The Redis PHP Extension is not Installed!');
 		}
+		$this->type=$type;
+		$this->prefix = CECILIA_STORAGE_REDIS_PREFIX . $this->type.'_';
+		$this->type=$type;
 		
 		if(CECILIA_STORAGE_REDIS_SOCKET){
 			$this->_conn = new Redis(CECILIA_STORAGE_REDIS_SOCKET);
 		}else{
 			$this->_conn = new Redis(CECILIA_STORAGE_REDIS_HOST,CECILIA_STORAGE_REDIS_PORT);
 		}
+		
 		if(!$this->_conn){
 			throw new CeciliaError('Could not Connect to the Redis Server at: ' . (CECILIA_STORAGE_REDIS_SOCKET ? CECILIA_STORAGE_REDIS_SOCKET : CECILIA_STORAGE_REDIS_HOST . ' port: ' . CECILIA_STORAGE_REDIS_PORT));
 		}
-		
 		return true;
 	}
 }

@@ -23,9 +23,8 @@ namespace cecilia\storage;
  *
  */
 
-use cecilia\core\CeciliaError;
-
-use cecilia\core\StorageAdapter;
+use cecilia\core\CeciliaError,
+	cecilia\core\StorageAdapter;
 
 class CeciliaStore implements StorageAdapter {
 	
@@ -33,10 +32,9 @@ class CeciliaStore implements StorageAdapter {
 	
 	private $_cache_dir='';
 
-	function __construct($type){
+	function __construct(){
 		
-		$this->type=$type;
-		$this->_cache_dir = CECILIA_STORAGE_CS_CACHEDIR.$this->type.DIRECTORY_SEPARATOR;
+	
 		
 	}
 	
@@ -58,19 +56,26 @@ class CeciliaStore implements StorageAdapter {
 		}
 		
 	}
-	
+	/**
+	 * 
+	 * @see cecilia\core.StorageAdapter::get()
+	 */
 	public function get($key) {
 		if($this->_set_filename($key)){
 			return json_decode(file_get_contents($this->_cache_dir.$this->_filename));
 		}
 		return false;
 	}
-	
+	/**
+	 * Sets the key=>value to the file.
+	 * @see cecilia\core.StorageAdapter::set()
+	 */
 	public function set($key, $value) {
 		if($this->_set_filename($key)){
 			if(fwrite($this->_file,json_encode($value))){
 				return true;
 			}
+			throw new CeciliaError('Error Writing to File!');
 		}else{
 			$this->_file = fopen($this->_cache_dir.$this->_filename,'w');
 			if($this->_file){
@@ -85,11 +90,22 @@ class CeciliaStore implements StorageAdapter {
 		}
 		return false;
 	}
-	
-	public function init() {
-		
+	/**
+	 * Doesn't do anything, since the key isn't passed to init...
+	 * @see cecilia\core.StorageAdapter::init()
+	 */
+	public function init($type) {
+		$this->type=$type;
+		$this->_cache_dir = CECILIA_STORAGE_CS_CACHEDIR.$this->type.DIRECTORY_SEPARATOR;
 	}
-	
+	/**
+	 * Sets the filename to write/read the data from.
+	 * 
+	 * If the file does not exist, the file is attempted to be created/opened.
+	 * 
+	 * @param string $key
+	 * @throws CeciliaError
+	 */
 	private function _set_filename($key){
 		$this->_filename = $key;
 		if(!file_exists($this->_filename)){

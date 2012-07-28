@@ -1,7 +1,7 @@
 {
     "name": "blanc0/cecilia",
     "type": "library",
-    "description": "A PHP wrapper for the Spotify Web API and Play Button API",
+    "description": "A PHP wrapper for the Spotify Web API and Play Button iframe",
     "keywords": ["spotify","cecilia"],
     "homepage": "http://github.com/blanc0/cecilia",
     "license": "MIT",

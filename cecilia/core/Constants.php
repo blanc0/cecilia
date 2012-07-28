@@ -15,6 +15,16 @@ namespace cecilia\core;
  *
  */
 class Constants {
+
+	/**
+	 * @var unknown_type
+	 * options: 0 = disabled, 1 = enabled
+	 */
+	const STORAGE_ENABLED=1;
+	
+	const STORAGE_DRIVER="Memcache";
+	
+	const STORAGE_TTL=48600;
 	/**
 	 * The max number of seconds for a round-trip HTTP request to execute.
 	 * @var int
@@ -76,15 +86,6 @@ class Constants {
 	*******************************************************************************/
 	
 	
-	/**
-	 * @var unknown_type
-	 * options: 0 = disabled, 1 = enabled
-	 */
-	const STORAGE_ENABLED=1;
-	
-	const STORAGE_DRIVER="file";
-	
-	const STORAGE_TTL=48600;
 	
 }
 

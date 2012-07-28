@@ -19,18 +19,17 @@ namespace cecilia\core;
 
 
 use cecilia\core\CeciliaError;
-
 class Storage{
 	
 	public static $_PREPEND='';
 	
 	private $_adapter;
 	
-	function __construct(){
-		$adapter_name = 'storage\\'.Constants::STORAGE_DRIVER;
+	function __construct($type){
+		$adapter_name = 'cecilia\storage\\'.Constants::STORAGE_DRIVER;
 		try{
-			$this->_adapter = new $adapter_name;
-			$this->_adapter->init();
+			$this->_adapter = new $adapter_name();
+			$this->_adapter->init($type);
 		}catch(CeciliaError $e){
 			throw new CeciliaError('Sorry, failed to initialize the Storage Adapter. : ' . $e->getMessage());
 		}

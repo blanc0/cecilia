@@ -8,11 +8,10 @@ namespace cecilia\core;
  */
 interface StorageAdapter {
 	
-	public $type;
 	
-	function __construct($type);
+	function __construct();
 	
-	function init();
+	function init($type);
 	
 	function get($key);
 	

@@ -23,9 +23,8 @@ use cecilia\core\CeciliaError,
 	cecilia\core\StorageAdapter;
 
 class WinCache implements StorageAdapter {
-
-	function __construct($type){
-		$this->type=$type;
+	public $type;
+	function __construct(){
 	}
 		
 	public function remove($key) {
@@ -64,10 +63,13 @@ class WinCache implements StorageAdapter {
 				);
 	}
 	
-	public function init() {
+	public function init($type) {
+		
 		if(!function_exists('wincache_ucache_set')){
 			throw new CeciliaError('Wincache Extension Not Installed!');
 		}
+
+		$this->type=$type;
 	}
 }
 

@@ -22,6 +22,8 @@ use cecilia\core\CeciliaError,
 
 class XCache implements StorageAdapter {
 	
+	public $type;
+	
 	public function remove($key) {
 		if(xcache_isset($this->type.'_'.$key))
 			xcache_unset($this->type.'_'.$key);
@@ -45,14 +47,14 @@ class XCache implements StorageAdapter {
 				);
 	}
 	
-	public function init() {
+	public function init($type) {
 		if(!function_exists('xcache_set')){
 			throw new CeciliaError('Xcache Extension Not Installed!');
 		}
+		$this->type=$type;
 	}
 	
-	function __construct($type){
-		$this->type=$type;
+	function __construct(){
 	}
 }
 

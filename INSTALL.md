@@ -9,7 +9,7 @@ You'll need to check out [Composer](http://getcomposer.org/) if you have never u
 To Install the Latest Version:  
 
 	{
-		"require":{"blanc0/cecilia":"master-dev"
+		"require":{"blanc0/cecilia":"master-dev"}
 	}
 
 

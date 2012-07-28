@@ -51,9 +51,10 @@ class MongoDB implements StorageAdapter {
 	private $_user=false;
 	
 	private $_pass=false;
-
-	function __construct($type){
-		$this->type=$type;
+	
+	public $type;
+	
+	function __construct(){
 	}
 	
 	public function remove($key) {
@@ -97,12 +98,13 @@ class MongoDB implements StorageAdapter {
 	 * @link http://us.php.net/manual/en/mongo.connecting.php
 	 * @see cecilia\core.StorageAdapter::init()
 	 */
-	public function init() {
+	public function init($type) {
 		
 		if(!class_exists('Mongo')){
 			throw new CeciliaError('MongoDB Extension Not Installed!');
 		}
-		
+
+		$this->type=$type;
 		$this->_user = ( CECILIA_STORAGE_MONGO_USER!='' ? CECILIA_STORAGE_MONGO_USER : false );
 		$this->_pass = ( CECILIA_STORAGE_MONGO_PASS!='' ? CECILIA_STORAGE_MONGO_PASS : false );
 		$this->_host = ( CECILIA_STORAGE_MONGO_HOST!='' ? CECILIA_STORAGE_MONGO_HOST : $this->_host );

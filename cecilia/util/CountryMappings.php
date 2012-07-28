@@ -266,11 +266,10 @@ class CountryMappings{
   
   
   public static function get_country_name($key){
-  	if(array_key_exists($key,self::$COUNTRIES)){
-  		return self::$COUNTRIES[$key];
-  	}else{
-  		return false;
-  	}
+  	return (array_key_exists($key,self::$COUNTRIES)
+  			? self::$COUNTRIES[$key] 
+  			: false
+  			);
   }
   
   public static function get_countries(){
