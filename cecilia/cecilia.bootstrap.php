@@ -4,6 +4,7 @@ date_default_timezone_set('GMT');
 /*******************************************************************************
  * CECILA GLOBAL CONFIGURATION 
 *******************************************************************************/
+//if(PHP_VERSION > )
 
 // 1 enabled, 0 disabled.
 define("CECILIA_DEBUG_MODE",FALSE);
@@ -24,8 +25,6 @@ define ("CECILIA_DS",DIRECTORY_SEPARATOR);
  *  @var string
  */
 define("CECILIA_BASE_PATH",dirname(__FILE__).CECILIA_DS);
-
-
 
 /******************************************************************
  * PAGER

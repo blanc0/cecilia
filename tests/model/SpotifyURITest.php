@@ -1,7 +1,6 @@
 <?php
 
 require_once '../../cecilia/cecilia.bootstrap.php';
-
 require_once 'PHPUnit/Framework/TestCase.php';
 
 /**

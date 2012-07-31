@@ -14,11 +14,9 @@ namespace cecilia\util;
  * 
  */
 class CountryMappings{
-	
- protected static $SUPPORTED_SPOTIFY_COUNTRIES=array(
- 	'US','AU'
- );
-	
+  /**
+   * The list of country code to full country name, as per the ISO Standard in the link above. 
+   */
   protected static $COUNTRIES = array(
 	"AD"=>"Andorra", 
 	"AE"=>"United Arab Emirates", 

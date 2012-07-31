@@ -24,6 +24,7 @@ use cecilia\core\CeciliaError;
  */
 
 class Filter extends \FilterIterator {
+
 	/**
 	 * The method to call.
 	 * @type string
@@ -87,7 +88,9 @@ class Filter extends \FilterIterator {
 			case 'before':
 				return(
 						isset($this->current()->released) && $this->current()->released < $year
+						// return 1
 						? 1
+						// return -1
 						: -1
 					);
 				break;

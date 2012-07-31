@@ -26,7 +26,7 @@ namespace cecilia\core;
  * // php 5.4+
  * $grateful_dead_albums = (new Cecilia)->search('grateful dead',['type'=>'album','filter'=>'before:2003','page'=>2]);
  * 
- * 
+ * echo $grateful_dead_albums->to_playlist();
  * 
  * </code>
  * 
@@ -250,12 +250,12 @@ class Cecilia {
 		
 		(isset($options['filter']) 
 		 ? new Filter($it)
-		 : null
+		 : ''
 		 );
 
 		(isset($options['sort'])
 		? $it->uasort(array($options['sort']))
-		: null
+		: ''
 		);
 		
 		
@@ -287,7 +287,7 @@ class Cecilia {
 		
 		$player = new Player();
 		$player_html = $player->get_player($uri, $player_options);
-		
+		die($player_html);
 		return new Response(1, $player_html);
 		
 		
@@ -312,10 +312,10 @@ class Cecilia {
 		}
 		
 		$this->_curl = curl_init();
-		var_dump($this->base_uri.$this->query_string);
+		//var_dump($this->base_uri.$this->query_string);
 		curl_setopt($this->_curl,CURLOPT_URL,$this->base_uri.$this->query_string);
 		curl_setopt($this->_curl,CURLOPT_CONNECTTIMEOUT,Constants::HTTP_TIMEOUT);
-		curl_setopt($this->_curl, CURLOPT_HEADER, 1);
+		curl_setopt($this->_curl,CURLOPT_HEADER,1);
 		curl_setopt($this->_curl,CURLOPT_HTTPHEADER,array('If-Modified-Since: ' . time() -  1000));
 		curl_setopt($this->_curl,CURLOPT_RETURNTRANSFER,1);
 		
@@ -336,6 +336,10 @@ class Cecilia {
 	
 	public function batch(){}
 	
+	/**
+	 * Parses the incoming options from the request.
+	 * @var array $options 		The options array!
+	 */
 	private function _parse_options($options){
 		
 		// for search and lookup
@@ -343,15 +347,22 @@ class Cecilia {
 		$this->type = (isset($options['type']) ?  $options['type'] : false );
 		
 		// for player
-		$this->h 		= 	(isset($options['h']) ?  $options['h'] : false );
-		$this->w 		= 	(isset($options['w']) ?  $options['w'] : false );
-		$this->theme 	= 	(isset($options['theme']) ?  $options['theme'] : false );
-		$this->sort 	= 	(isset($options['sort']) ?  $options['sort'] : false );
-		$this->filter 	= 	(isset($options['filter']) ?  $options['filter'] : false );
-		$this->max 		= 	(isset($options['max']) ?  $options['max'] : false );
-		
+		$this->h 		= 	(isset($options['h']) 		?  $options['h'] : false );
+		$this->w 		= 	(isset($options['w']) 		?  $options['w'] : false );
+		$this->theme 	= 	(isset($options['theme']) 	?  $options['theme'] : false );
+		$this->sort 	= 	(isset($options['sort']) 	?  $options['sort'] : false );
+		$this->filter 	= 	(isset($options['filter']) 	?  $options['filter'] : false );
+		$this->max 		= 	(isset($options['max']) 	?  $options['max'] : false );
+		return;
 	}
 	
+	/**
+	 * Parses the headers from the Spotify Response.  Currently looking for the expires header.
+	 * @todo Better matching against headers for caching.
+	 * 
+	 * @var string $headers		The header string from the response from the Spotify Server
+	 * 
+	 */
 	private function _extract_headers($headers){
 		
 		preg_match('/Expires: (.*)GMT/',$headers,$matches);

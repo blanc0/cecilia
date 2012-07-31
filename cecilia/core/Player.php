@@ -78,13 +78,14 @@ class Player {
 	/**
 	 * The maximum height of the player, as defined by Spotify.
 	 */	
-	const U_MIN_HEIGHT=false;
-	
-	/**
-	 * The maximum height of the player, as defined by Spotify.
-	 */	
 	
 	const VIEW='list';
+	
+	
+	/**
+	 * 
+	 */
+	 const PLAYER_STRING='<iframe src="https://embed.spotify.com/?uri=%s&theme=white&view=coverart" width="%d" height="%d"  frameborder="0" allowtransparency="true"></iframe>';
 	/**
 	 * The height of the player
 	 * @type int
@@ -120,9 +121,9 @@ class Player {
 	
 	function get_player($uri,$options){
 		if($uri instanceof SpotifyURI){
-			$this->_build_player_from_uri();
+			return $this->_build_player_from_uri($uri,$options);
 		}else{
-			$this->_build_player_from_list();
+			return $this->_build_player_from_list($uri,$options);
 		}
 		//a spotify uri
 	}
@@ -130,7 +131,17 @@ class Player {
 	private function _parse_options(){}
 	
 	private function _parse_uri(){}
-	
+	/**
+	 * 
+	 */
+	private function _build_player_from_uri($uri,$options){
+		return sprintf( 
+						self::PLAYER_STRING,
+						$uri->uri_to_string(),
+						(isset($options['w']) ? $options['w'] : self::MIN_WIDTH),
+						(isset($options['h']) ? $options['h'] : self::MIN_HEIGHT)
+					   );
+	}	
 }
 
 ?>

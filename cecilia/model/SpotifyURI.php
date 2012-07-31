@@ -56,15 +56,19 @@ class SpotifyURI extends Model {
 	
 	/**
 	 * The open.spotify.com link built from the spotify uri passed to the constructor.
+	 * @example 	
 	 */
 	public $open_uri;
+	
 	/**
 	 * Parses the URI string into member variables.
 	 * @param string $uri_string
 	 * @throws CeciliaError
 	 */
 	function __construct($uri_string){
+		// we've received a Spotify URI
 		if(preg_match('/:/',$uri_string)){
+			$this->uri = $uri_string;
 			$parts = explode(':',$uri_string);
 			$count = count($parts);
 			if($count==5){
@@ -101,6 +105,10 @@ class SpotifyURI extends Model {
 			:  self::$_SPOTIFY_OPEN_URI.'user/'.$this->user.'/'.$this->type.'/'.$this->id	
 		);
 		return false;
+	}
+	
+	public function uri_to_string(){
+		return $this->uri;
 	}
 }
 

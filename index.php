@@ -4,8 +4,13 @@
 	require_once 'cecilia/cecilia.bootstrap.php';
 	$c = new cecilia\core\Cecilia();
 	
-	$results = $c->search('sand',['type'=>'track','page'=>44]);
+	$results = $c->search('mf doom',['type'=>'artist','page'=>44]);
 	var_dump($results);
+	
+	//$c->play('spotify:user:theblanc0:playlist:7mi74nC0yHshw3ZB8T4DOJ',['w'=>250,'h'=>640,'theme'=>'light']);
+	
+//	$c->play('spotify:track:3gpZMQJkS373g7Os0P9qRr',['w'=>240,'h'=>120]);
+	
 	
 	
 	
