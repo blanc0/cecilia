@@ -1,8 +1,6 @@
 <?php
 namespace cecilia\core;
 
-class Iterator extends \ArrayIterator {
-		
+class Iterator extends \ArrayIterator
+{
 }
-
-?>

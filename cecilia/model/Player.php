@@ -12,41 +12,40 @@ namespace cecilia\model;
  * @package    cecilia
  * @subpackage model
  */
-class Player {
-	/**
+class Player
+{
+    /**
 	 * The HTML for the player ( iframe )
 	 * @var string
 	 */
-	public $html;
-	/**
+    public $html;
+    /**
 	 * The height of the player
 	 * @var int
 	 */
-	public $height;
-	/**
+    public $height;
+    /**
 	 * The width of the player
 	 * @var int
-	 */	
-	public $width;
-	/**
+	 */
+    public $width;
+    /**
 	 * The player theme
 	 * Options: "black","white"
 	 * @var string
-	 */	
-	public $theme;
-	/**
+	 */
+    public $theme;
+    /**
 	 * The View to use
 	 * Options: "list","view"
 	 * @var string
 	 */
-	public $view;
-	/**
+    public $view;
+    /**
 	 * The Spotify URI
-	 * Ex:  
+	 * Ex:
 	 * @var string
 	 */
-	public $uri;
-	
-}
+    public $uri;
 
-?>
+}

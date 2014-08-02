@@ -11,51 +11,55 @@ namespace cecilia\storage;
  * @namespace cecilia\storage
  * @package cecilia
  * @subpackage storage
- * 
+ *
  * @uses XCache
  * @link http://xcache.lighttpd.net/
  *
  */
 
 use cecilia\core\CeciliaError,
-	cecilia\core\StorageAdapter;
+    cecilia\core\StorageAdapter;
 
-class XCache implements StorageAdapter {
-	
-	public $type;
-	
-	public function remove($key) {
-		if(xcache_isset($this->type.'_'.$key))
-			xcache_unset($this->type.'_'.$key);
-	}
-	
-	public function get($key) {
-		$data = xcache_get($this->type.'_'.$key);
-		return(
-				$data
-				? $data
-				: false
-				);
-		
-	}
-	
-	public function set($key, $value) {
-		return(
-				xcache_set($this->type.'_'.$key,$value)
-				? true
-				: false
-				);
-	}
-	
-	public function init($type) {
-		if(!function_exists('xcache_set')){
-			throw new CeciliaError('Xcache Extension Not Installed!');
-		}
-		$this->type=$type;
-	}
-	
-	function __construct(){
-	}
+class XCache implements StorageAdapter
+{
+    public $type;
+
+    public function remove($key)
+    {
+        if(xcache_isset($this->type.'_'.$key))
+            xcache_unset($this->type.'_'.$key);
+    }
+
+    public function get($key)
+    {
+        $data = xcache_get($this->type.'_'.$key);
+
+        return(
+                $data
+                ? $data
+                : false
+                );
+
+    }
+
+    public function set($key, $value)
+    {
+        return(
+                xcache_set($this->type.'_'.$key,$value)
+                ? true
+                : false
+                );
+    }
+
+    public function init($type)
+    {
+        if (!function_exists('xcache_set')) {
+            throw new CeciliaError('Xcache Extension Not Installed!');
+        }
+        $this->type=$type;
+    }
+
+    public function __construct()
+    {
+    }
 }
-
-?>

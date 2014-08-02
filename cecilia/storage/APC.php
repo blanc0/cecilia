@@ -12,49 +12,52 @@ namespace cecilia\storage;
  * @package cecilia
  * @subpackage storage
  * @link http://www.php.net/manual/en/book.apc.php
- * 
+ *
  */
 
 use cecilia\core\CeciliaError,
-	cecilia\core\StorageAdapter;
+    cecilia\core\StorageAdapter;
 
-class APC implements StorageAdapter {
+class APC implements StorageAdapter
+{
+    public function __construct()
+    {
+    }
 
-	function __construct(){
-		
-	}
-		
-	public function remove($key) {
-		return(
-				apc_delete($this->type . '_' . $key)
-				? true
-				: false 
-		);		
-	}
-	
-	public function get($key) {
-		$data = apc_fetch($this->type . '_' . $key);
-		return(
-				$data
-				? $data
-				: false
-			   );
-	}
-	
-	public function set($key, $value) {
-		return(
-				apc_store($this->type . '_' . $key,$value)
-				? true
-				: false
-		);	
-	}
-	
-	public function init($type) {
-		if(!function_exists('apc_store')){
-			throw new CeciliaError('APC Functions Do Not Exist! Please check to make sure you have APC installed.');
-		}
-		$this->type=$type;
-	}
+    public function remove($key)
+    {
+        return(
+                apc_delete($this->type . '_' . $key)
+                ? true
+                : false
+        );
+    }
+
+    public function get($key)
+    {
+        $data = apc_fetch($this->type . '_' . $key);
+
+        return(
+                $data
+                ? $data
+                : false
+               );
+    }
+
+    public function set($key, $value)
+    {
+        return(
+                apc_store($this->type . '_' . $key,$value)
+                ? true
+                : false
+        );
+    }
+
+    public function init($type)
+    {
+        if (!function_exists('apc_store')) {
+            throw new CeciliaError('APC Functions Do Not Exist! Please check to make sure you have APC installed.');
+        }
+        $this->type=$type;
+    }
 }
-
-?>

@@ -9,35 +9,37 @@ namespace cecilia\model;
  * @namespace cecilia\model
  * @package cecilia
  * @subpackage model
- * 
+ *
  *
  */
 
 use cecilia\core\Model;
 
-class Artist extends Model{
-	/**
+class Artist extends Model
+{
+    /**
 	 * The Artist's name
 	 * @var string
 	 */
-	public $name;
-	/**
+    public $name;
+    /**
 	 * The Popularity
 	 * @var float
 	 */
-	public $popularity;
-	/**
+    public $popularity;
+    /**
 	 * The artist Spotify URI
 	 * @var string
 	 */
-	public $href;
-	/**
+    public $href;
+    /**
 	 * Populates the member variables with values from spotify api response
 	 * @param object $item
 	 */
-	function __construct($item){
-	 	$this->name=$item->name;
-	 	$this->popularity=(int)$item->popularity;
-	 	$this->href=$item->href;
-	}
+    public function __construct($item)
+    {
+        $this->name=$item->name;
+        $this->popularity=(int) $item->popularity;
+        $this->href=$item->href;
+    }
 }

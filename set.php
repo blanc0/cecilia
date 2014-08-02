@@ -6,5 +6,4 @@ $db = $m->$db_name;
 
 // database "doesnt_exist" is created.
 
-
 var_dump($db);
