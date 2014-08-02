@@ -1,7 +1,7 @@
 <?php
-	require_once '../cecilia/cecilia.bootstrap.php';
-	
-	$c = new \cecilia\core\Cecilia();
+    require_once '../cecilia/cecilia.bootstrap.php';
+
+    $c = new \cecilia\core\Cecilia();
 ?>
 
 <!DOCTYPE html>

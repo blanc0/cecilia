@@ -4,22 +4,19 @@ namespace cecilia\core;
 /**
  *
  * @author blanc0
- *        
+ *
  */
-interface StorageAdapter {
-	
-	
-	function __construct();
-	
-	function init($type);
-	
-	function get($key);
-	
-	function set($key,$value);
-	
-	function remove($key);
-	
+interface StorageAdapter
+{
+    public function __construct();
+
+    public function init($type);
+
+    public function get($key);
+
+    public function set($key,$value);
+
+    public function remove($key);
+
 //	function update($key,$value);
 }
-
-?>

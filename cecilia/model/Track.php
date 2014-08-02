@@ -10,7 +10,7 @@ namespace cecilia\model;
  * @package cecilia
  * @subpackage model
  *
- * 
+ *
  * http://ws.spotify.com/lookup/1/.json?uri=spotify:album:6G9fHYDCoyEErUkHrFYfs4&extras=trackdetail
 {
 available: true,
@@ -33,43 +33,45 @@ name: "Basement Jaxx"
 disc-number: "1",
 name: "Rendez-vu"
 },
- * 
- * 
- * 
+ *
+ *
+ *
  */
-class Track extends \cecilia\core\Model{
-	
-	private $_type='track';
-	
-	public $available;
-	
-	public $track_number;
-	
-	public $popularity;
-	
-	public $external_ids;
-	
-	public $length;
-	
-	public $href;
-	
-	public $artists;
-	
-	public $disc_number;
-	
-	public $name;
-	
-	function __construct($track){
-		parent::__construct($track);
-	}
-	
-	
-	/**
+class Track extends \cecilia\core\Model
+{
+    private $_type='track';
+
+    public $available;
+
+    public $track_number;
+
+    public $popularity;
+
+    public $external_ids;
+
+    public $length;
+
+    public $href;
+
+    public $artists;
+
+    public $disc_number;
+
+    public $name;
+
+    public function __construct($track)
+    {
+        parent::__construct($track);
+    }
+
+    /**
 	 * @param int $length the length of the track.
 	 */
-	private function _get_track_length($length){
-		(int)$length;
-		return (strlen()>0 ? $length / 60 :  0);
-		
-	}
+    private function _get_track_length($length)
+    {
+        (int) $length;
+
+        return (strlen()>0 ? $length / 60 :  0);
+
+    }
 }

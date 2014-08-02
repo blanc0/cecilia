@@ -2,16 +2,15 @@
 
 date_default_timezone_set('GMT');
 /*******************************************************************************
- * CECILA GLOBAL CONFIGURATION 
+ * CECILA GLOBAL CONFIGURATION
 *******************************************************************************/
 //if(PHP_VERSION > )
 
 // 1 enabled, 0 disabled.
-define("CECILIA_DEBUG_MODE",FALSE);
-
+define("CECILIA_DEBUG_MODE",false);
 
 // 1 enabled, 0 disabled.
-define("CECILIA_LOGGING_ENABLED",FALSE);
+define("CECILIA_LOGGING_ENABLED",false);
 // first, call the init() function to ensure that we have all required components.
 
 /**
@@ -48,12 +47,9 @@ define("CECILIA_PAGER_MAX_PAGES",3);
  */
 define("CECILIA_PAGER_MAX_ITEMS",CECILIA_PAGER_MAX_PAGES*CECILIA_PAGER_MAX_PER_PAGE);
 
-
-
 /******************************************************************
  * PLAYER
 ******************************************************************/
-
 
 /**
  *  The Default Player Height
@@ -70,10 +66,6 @@ define("U_PLAYER_WIDTH",240);
  *  @var string
  */
 define("U_PLAYER_HEIGHT_MAX",240);
-
-
-
-
 
 /******************************************************************
  * CECILIA STORAGE - MONGO
@@ -109,8 +101,6 @@ define("CECILIA_STORAGE_MONGO_NAME","myapp");
  */
 define("CECILIA_STORAGE_MONGO_COLLECTION","cecilia");
 
-
-
 /******************************************************************
  * CECILIA STORAGE - MEMCACHE
 ******************************************************************/
@@ -124,7 +114,6 @@ define("CECILIA_STORAGE_MEMCACHE_HOST","localhost");
  * @var int
  */
 define("CECILIA_STORAGE_MEMCACHE_PORT",11211);
-
 
 /******************************************************************
  * CECILIA STORAGE - REDIS
@@ -150,7 +139,6 @@ define("CECILIA_STORAGE_REDIS_PREFIX","cecilia_");
  * @var int
  */
 define("CECILIA_STORAGE_REDIS_SOCKET",false);
-
 
 /******************************************************************
  * CECILIA STORAGE - PostgreSQL ( PGSQL )
@@ -192,9 +180,8 @@ define("CECILIA_STORAGE_PGSQL_OPTIONS","options='--client_encoding=UTF8'");
  */
 define("CECILIA_STORAGE_PGSQL_TABLE","cecilia");
 
-
 /************************************************************************************
- * CECILIA AUTOLOADER 
+ * CECILIA AUTOLOADER
  **********************************************************************************/
 
 spl_autoload_register(null,false);
@@ -202,14 +189,15 @@ spl_autoload_register(null,false);
 /**
  * SPL Autoloader for the Cecilia library.  This will load all necessary classes if this file is included.
  */
-function cecilia_autoload($className){
-	if(!class_exists($className)):
-		$className = str_replace('cecilia','',$className);
-		if(!file_exists(CECILIA_BASE_PATH.str_replace("\\","/",$className).'.php')):
-			return false;
-		endif;
-	require_once CECILIA_BASE_PATH.str_replace("\\","/",$className).'.php';
-	endif;
+function cecilia_autoload($className)
+{
+    if(!class_exists($className)):
+        $className = str_replace('cecilia','',$className);
+        if(!file_exists(CECILIA_BASE_PATH.str_replace("\\","/",$className).'.php')):
+            return false;
+        endif;
+    require_once CECILIA_BASE_PATH.str_replace("\\","/",$className).'.php';
+    endif;
 }
 
 spl_autoload_register('cecilia_autoload');

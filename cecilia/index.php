@@ -1,3 +1,3 @@
 <?php
-	
-	include 'cecilia.bootstrap.php';
+
+    include 'cecilia.bootstrap.php';

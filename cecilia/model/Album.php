@@ -11,60 +11,61 @@ namespace cecilia\model;
  * @subpackage model
  *
  */
-class Album extends \cecilia\core\Model{
-	
-	private $_type='album';
-	/**
+class Album extends \cecilia\core\Model
+{
+    private $_type='album';
+    /**
 	 * The artist ID
-	 * @var string 
+	 * @var string
 	 */
-	public $artist_id;
-	/**
+    public $artist_id;
+    /**
 	 * The name of the album
 	 * @var string
 	 */
-	public $name;
-	/**
+    public $name;
+    /**
 	 * The Album's Artist or Artists
 	 * @var array of cecilia\model\Artist
 	 */
-	public $artist=array();
-	/**
+    public $artist=array();
+    /**
 	 * External ID's for the album.
 	 * @var array
 	 */
-	public $external_ids;
-	/**
+    public $external_ids;
+    /**
 	 * The Year Released
 	 * @var int
 	 */
-	public $released;
-	/**
+    public $released;
+    /**
 	 * The tracks on the album
 	 * @var cecilia\model\Track
 	 */
-	public $tracks=array();
-	/**
+    public $tracks=array();
+    /**
 	 * The album popularity
 	 * @var float
 	 */
-	public $popularity;
-	/**
+    public $popularity;
+    /**
 	 * The album's spotify URI
 	 * @var string
 	 */
-	public $href;
-	/**
+    public $href;
+    /**
 	 * The Album's Artist or Artists
 	 * @var array of cecilia\model\Artist
-	 */	
-	public $artists;
-	/**
+	 */
+    public $artists;
+    /**
 	 * Populates member variables from Spotify API Call.
 	 * @param object $album
 	 */
-	function __construct($album){
-		parent::__construct($album->album);
-	}
-	
+    public function __construct($album)
+    {
+        parent::__construct($album->album);
+    }
+
 }

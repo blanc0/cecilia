@@ -12,26 +12,22 @@ namespace cecilia\model;
  *
  */
 
+class Response
+{
+    public $success;
 
-class Response{
-	
-	public $success;
-	
-	public $pager;
-	
-	public $data;
-	
-	public $message;
-	
-	function __construct($success,$data,$pager=null,$message=''){
-		$this->success=$success;
-		$this->data=$data;
-		$this->pager=$pager;
-		$this->message=$message;
-	}
-	
-	
-	
+    public $pager;
+
+    public $data;
+
+    public $message;
+
+    public function __construct($success,$data,$pager=null,$message='')
+    {
+        $this->success=$success;
+        $this->data=$data;
+        $this->pager=$pager;
+        $this->message=$message;
+    }
+
 }
-
-?>
